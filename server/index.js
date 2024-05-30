@@ -75,10 +75,12 @@ mongoose.connect(process.env.MONGO_URL, {     // Connect to MongoDB using the pr
   // Post.insertMany(posts);             // Optional: Insert initial post data into the database
 }).catch((error) => console.log(`${error} did not connect`)) // Handle connection errors
 
-app.use(express.static(path.join(_dirname, "/client/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(_dirname, "client", "dist", "index.html"))
-})
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+// The "catchall" handler: for any request that doesn't match one above, send back index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 
 
 
