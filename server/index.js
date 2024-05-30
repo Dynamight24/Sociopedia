@@ -24,10 +24,12 @@ import { users, posts } from "./data/index.js";
 
 
 // Configurations
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-dotenv.config()                                // Load environment variables from .env file
+dotenv.config()  // Load environment variables from .env file
+const _dirname = path.resolve();
 const app = express()                          // Create an instance of the Express application
 
 // Middleware setup
@@ -72,6 +74,11 @@ mongoose.connect(process.env.MONGO_URL, {     // Connect to MongoDB using the pr
   // User.insertMany(users);                 // Optional: Insert initial user data into the database
   // Post.insertMany(posts);             // Optional: Insert initial post data into the database
 }).catch((error) => console.log(`${error} did not connect`)) // Handle connection errors
+
+app.use(express.static(path.join(_dirname, "/client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(_dirname, "client", "dist", "index.html"))
+})
 
 
 
