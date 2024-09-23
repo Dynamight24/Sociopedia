@@ -9,6 +9,8 @@ const initialState = {
     posts: [],        // List of posts
 }
 
+// these reducers are to quickly update the ui as sending requests to the server takes time
+
 // Create an authSlice using createSlice
 export const authSlice = createSlice({
     name: "auth",  // Name of the slice
